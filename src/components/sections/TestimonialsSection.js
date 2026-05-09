@@ -44,36 +44,35 @@ export function TestimonialsSection() {
   const [active, setActive] = useState(0);
   const [animating, setAnimating] = useState(false);
   const sectionRef = useRef(null);
-  const cardRef = useRef(null);
+  const trackRef = useRef(null);
 
-  const goTo = useCallback((index) => {
-    if (animating || index === active) return;
-    setAnimating(true);
+  const goTo = useCallback(
+    (index) => {
+      if (animating || index === active) return;
+      setAnimating(true);
 
-    gsap.to(cardRef.current, {
-      opacity: 0,
-      x: index > active ? -40 : 40,
-      duration: 0.3,
-      ease: "power2.in",
-      onComplete: () => {
-        setActive(index);
-        gsap.fromTo(
-          cardRef.current,
-          { opacity: 0, x: index > active ? 40 : -40 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.4,
-            ease: "power2.out",
-            onComplete: () => setAnimating(false),
-          }
-        );
-      },
-    });
-  }, [active, animating]);
+      gsap.to(trackRef.current, {
+        xPercent: -index * (100 / TESTIMONIALS.length),
+        duration: 0.6,
+        ease: "power3.inOut",
+        onComplete: () => {
+          setActive(index);
+          setAnimating(false);
+        },
+      });
+    },
+    [active, animating]
+  );
 
-  const next = useCallback(() => goTo((active + 1) % TESTIMONIALS.length), [active, goTo]);
-  const prev = useCallback(() => goTo((active - 1 + TESTIMONIALS.length) % TESTIMONIALS.length), [active, goTo]);
+  const next = useCallback(
+    () => goTo((active + 1) % TESTIMONIALS.length),
+    [active, goTo]
+  );
+
+  const prev = useCallback(
+    () => goTo((active - 1 + TESTIMONIALS.length) % TESTIMONIALS.length),
+    [active, goTo]
+  );
 
   useEffect(() => {
     gsap.fromTo(
@@ -98,7 +97,7 @@ export function TestimonialsSection() {
   }, [next]);
 
   return (
-    <section ref={sectionRef} className="py-20 bg-white">
+    <section ref={sectionRef} className="py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-[35px] font-heading font-bold text-heading">
@@ -107,39 +106,54 @@ export function TestimonialsSection() {
         </div>
 
         <div className="max-w-3xl mx-auto">
-          <div ref={cardRef} className="relative rounded-3xl overflow-hidden">
-            <div className="bg-gradient-to-br from-primary to-primary-accent p-10 md:p-14">
-              <svg
-                className="absolute top-8 left-8 size-12 text-white/10"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-              </svg>
+          <div className="relative rounded-3xl overflow-hidden">
+            <div
+              ref={trackRef}
+              className="flex"
+              style={{ width: `${TESTIMONIALS.length * 100}%` }}
+            >
+              {TESTIMONIALS.map((t, i) => (
+                <div
+                  key={i}
+                  className="relative"
+                  style={{ width: `${100 / TESTIMONIALS.length}%` }}
+                >
+                  <div className="bg-gradient-to-br from-primary to-primary-accent p-10 md:p-14 h-full mx-0.5 rounded-3xl">
+                    <svg
+                      className="absolute top-8 left-8 size-12 text-white/10"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
 
-              <div className="relative">
-                <p className="text-white text-lg md:text-xl leading-relaxed italic mb-8">
-                  &ldquo;{TESTIMONIALS[active].quote}&rdquo;
-                </p>
+                    <div className="relative z-10">
+                      <p className="text-white text-lg md:text-xl leading-relaxed italic mb-8">
+                        &ldquo;{t.quote}&rdquo;
+                      </p>
 
-                <div className="w-16 h-1 bg-white/30 rounded-full mb-6" />
+                      <div className="w-16 h-1 bg-white/30 rounded-full mb-6" />
 
-                <div>
-                  <p className="text-white font-heading font-bold text-lg">
-                    {TESTIMONIALS[active].name}
-                  </p>
-                  <p className="text-white/70 text-sm">
-                    {TESTIMONIALS[active].title}, {TESTIMONIALS[active].company}
-                  </p>
+                      <div>
+                        <p className="text-white font-heading font-bold text-lg">
+                          {t.name}
+                        </p>
+                        <p className="text-white/70 text-sm">
+                          {t.title}, {t.company}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
 
           <div className="flex items-center justify-center mt-8 gap-6">
             <button
               onClick={prev}
-              className="testimonial-arrow flex items-center justify-center size-10 rounded-full border border-border hover:bg-primary hover:border-primary hover:text-white transition-all hover:scale-110 active:scale-95"
+              disabled={animating}
+              className="flex items-center justify-center size-10 rounded-full border border-border hover:bg-primary hover:border-primary hover:text-white transition-all hover:scale-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="size-5" />
@@ -150,9 +164,12 @@ export function TestimonialsSection() {
                 <button
                   key={i}
                   onClick={() => goTo(i)}
-                  className={`testimonial-dot size-2.5 rounded-full transition-all ${
-                    i === active ? "bg-primary scale-125" : "bg-border hover:bg-muted-foreground"
-                  }`}
+                  disabled={animating}
+                  className={`size-2.5 rounded-full transition-all ${
+                    i === active
+                      ? "bg-primary scale-125"
+                      : "bg-border hover:bg-muted-foreground"
+                  } disabled:cursor-not-allowed`}
                   aria-label={`Go to testimonial ${i + 1}`}
                 />
               ))}
@@ -160,7 +177,8 @@ export function TestimonialsSection() {
 
             <button
               onClick={next}
-              className="testimonial-arrow flex items-center justify-center size-10 rounded-full border border-border hover:bg-primary hover:border-primary hover:text-white transition-all hover:scale-110 active:scale-95"
+              disabled={animating}
+              className="flex items-center justify-center size-10 rounded-full border border-border hover:bg-primary hover:border-primary hover:text-white transition-all hover:scale-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
               aria-label="Next testimonial"
             >
               <ChevronRight className="size-5" />

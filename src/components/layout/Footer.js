@@ -20,9 +20,23 @@ const PRESENCE_COUNTRIES = ["India", "UAE", "USA", "Germany", "Japan"];
 
 export default function Footer() {
   return (
-    <footer className="bg-[#091c2d]">
+    <footer className="relative bg-[#091c2d] overflow-hidden">
+      {/* Industrial background overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.07] bg-[length:200px_200px] md:bg-[length:300px_300px]"
+        style={{
+          backgroundImage: `
+            linear-gradient(45deg, #ffffff 1px, transparent 1px),
+            repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px),
+            repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px),
+            radial-gradient(circle at 20% 80%, rgba(0,207,255,0.04) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(38,120,190,0.04) 0%, transparent 50%)
+          `,
+        }}
+      />
+
       {/* Main Footer */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-2">
@@ -127,7 +141,7 @@ export default function Footer() {
       </div>
 
       {/* SEO Footer Section */}
-      <div className="border-t border-[#748290]/30">
+      <div className="relative border-t border-[#748290]/30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
           <div className="max-w-none text-sm leading-relaxed text-[#92adca]">
             <p className="mb-4">

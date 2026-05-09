@@ -10,21 +10,21 @@ export const metadata = {
 };
 
 const COUNTRIES = [
-  { name: "India", flag: "IN", desc: "Headquarters and manufacturing facility based in India.", offices: "New Delhi" },
-  { name: "United Arab Emirates", flag: "AE", desc: "Strategic hub serving Middle East and African markets.", offices: "Dubai" },
-  { name: "United States", flag: "US", desc: "Growing presence in North American automotive and industrial sectors.", offices: "New York" },
-  { name: "Germany", flag: "DE", desc: "Serving European precision engineering and automotive industries.", offices: "Frankfurt" },
-  { name: "Japan", flag: "JP", desc: "Partnering with Japanese automotive and electronics manufacturers.", offices: "Tokyo" },
-  { name: "United Kingdom", flag: "GB", desc: "Expanding footprint in UK manufacturing and construction sectors." },
-  { name: "South Korea", flag: "KR", desc: "Supplying to Korean automotive and electronics giants." },
-  { name: "Singapore", flag: "SG", desc: "Southeast Asian distribution and logistics hub." },
-  { name: "Australia", flag: "AU", desc: "Growing presence in Australian mining and heavy equipment sectors." },
-  { name: "Saudi Arabia", flag: "SA", desc: "Key market for oil and gas industry steel requirements." },
-  { name: "Thailand", flag: "TH", desc: "Serving Southeast Asian automotive and manufacturing industries." },
-  { name: "Indonesia", flag: "ID", desc: "Expanding into Indonesian infrastructure and construction markets." },
-  { name: "Malaysia", flag: "MY", desc: "Strategic partner for Malaysian electronics and manufacturing." },
-  { name: "Vietnam", flag: "VN", desc: "Growing manufacturing sector driving steel strip demand." },
-  { name: "Egypt", flag: "EG", desc: "Gateway to North African markets with growing industrial base." },
+  { name: "India", flag: "🇮🇳", emoji: "🇮🇳", desc: "Headquarters and manufacturing facility based in India.", offices: "New Delhi" },
+  { name: "United Arab Emirates", flag: "🇦🇪", emoji: "🇦🇪", desc: "Strategic hub serving Middle East and African markets.", offices: "Dubai" },
+  { name: "United States", flag: "🇺🇸", emoji: "🇺🇸", desc: "Growing presence in North American automotive and industrial sectors.", offices: "New York" },
+  { name: "Germany", flag: "🇩🇪", emoji: "🇩🇪", desc: "Serving European precision engineering and automotive industries.", offices: "Frankfurt" },
+  { name: "Japan", flag: "🇯🇵", emoji: "🇯🇵", desc: "Partnering with Japanese automotive and electronics manufacturers.", offices: "Tokyo" },
+  { name: "United Kingdom", flag: "🇬🇧", emoji: "🇬🇧", desc: "Expanding footprint in UK manufacturing and construction sectors." },
+  { name: "South Korea", flag: "🇰🇷", emoji: "🇰🇷", desc: "Supplying to Korean automotive and electronics giants." },
+  { name: "Singapore", flag: "🇸🇬", emoji: "🇸🇬", desc: "Southeast Asian distribution and logistics hub." },
+  { name: "Australia", flag: "🇦🇺", emoji: "🇦🇺", desc: "Growing presence in Australian mining and heavy equipment sectors." },
+  { name: "Saudi Arabia", flag: "🇸🇦", emoji: "🇸🇦", desc: "Key market for oil and gas industry steel requirements." },
+  { name: "Thailand", flag: "🇹🇭", emoji: "🇹🇭", desc: "Serving Southeast Asian automotive and manufacturing industries." },
+  { name: "Indonesia", flag: "🇮🇩", emoji: "🇮🇩", desc: "Expanding into Indonesian infrastructure and construction markets." },
+  { name: "Malaysia", flag: "🇲🇾", emoji: "🇲🇾", desc: "Strategic partner for Malaysian electronics and manufacturing." },
+  { name: "Vietnam", flag: "🇻🇳", emoji: "🇻🇳", desc: "Growing manufacturing sector driving steel strip demand." },
+  { name: "Egypt", flag: "🇪🇬", emoji: "🇪🇬", desc: "Gateway to North African markets with growing industrial base." },
 ];
 
 const INDUSTRIES = [
@@ -33,31 +33,6 @@ const INDUSTRIES = [
   { name: "Construction", count: "15%", desc: "Infrastructure, roofing, and structural applications." },
   { name: "General Manufacturing", count: "30%", desc: "Cutting tools, fasteners, hardware, and industrial machinery." },
 ];
-
-function FlagCircle({ country }) {
-  const gradients = {
-    IN: "from-orange-500 via-white to-green-500",
-    AE: "from-red-600 via-white to-green-600",
-    US: "from-blue-900 via-white to-red-600",
-    DE: "from-black via-red-600 to-yellow-400",
-    JP: "from-white via-red-600 to-white",
-    GB: "from-blue-900 via-white to-red-600",
-    KR: "from-white via-red-600 to-blue-900",
-    SG: "from-white via-red-600 to-white",
-    AU: "from-blue-900 via-white to-red-600",
-    SA: "from-green-800 via-white to-green-800",
-    TH: "from-blue-900 via-white via-red-600 to-blue-900",
-    ID: "from-red-600 via-white to-white",
-    MY: "from-blue-900 via-yellow-400 via-red-600 to-blue-900",
-    VN: "from-red-600 via-yellow-400 to-red-600",
-    EG: "from-red-600 via-white to-black",
-  };
-  return (
-    <div className={`size-20 rounded-full bg-gradient-to-br ${gradients[country.flag] || "from-primary to-primary-accent"} shadow-md flex items-center justify-center text-xl font-bold`}>
-      {country.flag}
-    </div>
-  );
-}
 
 export default function OurPresencePage() {
   return (
@@ -121,7 +96,9 @@ export default function OurPresencePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
           {COUNTRIES.map((country) => (
             <div key={country.name} className="group p-6 rounded-2xl bg-muted/30 border border-border/30 hover:bg-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 animate-on-scroll">
-              <FlagCircle country={country} />
+              <div className="size-20 flex items-center justify-center rounded-full bg-gradient-to-br from-primary/5 to-primary-accent/5 shadow-sm group-hover:shadow-md transition-shadow text-4xl">
+                {country.emoji}
+              </div>
               <h3 className="text-base font-heading font-bold text-heading mt-4">{country.name}</h3>
               <p className="text-xs text-body leading-relaxed mt-2">{country.desc}</p>
               {country.offices && (

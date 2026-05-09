@@ -35,18 +35,30 @@ const VALUES = [
 function MilestoneCard({ milestone, index }) {
   const isLeft = index % 2 === 0;
   return (
-    <div className={`flex flex-col ${isLeft ? "md:flex-row" : "md:flex-row-reverse"} items-start md:items-center gap-6 md:gap-12 group animate-on-scroll`}>
-      <div className={`flex-1 ${isLeft ? "md:text-right" : "md:text-left"}`}>
+    <div
+      className={`relative flex flex-col ${
+        isLeft ? "md:flex-row" : "md:flex-row-reverse"
+      } items-start md:items-center gap-6 md:gap-12 group animate-on-scroll`}
+    >
+      <div
+        className={`flex-1 pl-12 md:pl-0 ${
+          isLeft ? "md:text-right" : "md:text-left"
+        }`}
+      >
         <span className="text-4xl font-heading font-bold text-primary/20 group-hover:text-primary/40 transition-colors">
           {milestone.year}
         </span>
-        <h3 className="text-xl font-heading font-bold text-heading mt-1">{milestone.title}</h3>
-        <p className="text-body text-sm mt-2 leading-relaxed">{milestone.description}</p>
+        <h3 className="text-xl font-heading font-bold text-heading mt-1">
+          {milestone.title}
+        </h3>
+        <p className="text-body text-sm mt-2 leading-relaxed">
+          {milestone.description}
+        </p>
       </div>
-      <div className="relative shrink-0">
+      <div className="absolute left-[9px] md:static md:shrink-0 z-10">
         <div className="size-5 rounded-full border-4 border-primary bg-white shadow-sm" />
       </div>
-      <div className="flex-1" />
+      <div className="flex-1 hidden md:block" />
     </div>
   );
 }
@@ -133,8 +145,9 @@ export default function AboutPage() {
           <h2 className="text-3xl md:text-[35px] font-heading font-bold text-heading mt-3">Key Milestones</h2>
         </div>
         <div className="relative max-w-3xl mx-auto">
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-border hidden md:block" />
-          <div className="space-y-12">
+          {/* Desktop: center line | Mobile: left line */}
+          <div className="absolute left-[19px] md:left-1/2 top-0 bottom-0 w-0.5 bg-border" />
+          <div className="space-y-12 relative">
             {MILESTONES.map((milestone, i) => (
               <MilestoneCard key={milestone.year} milestone={milestone} index={i} />
             ))}
