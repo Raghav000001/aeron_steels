@@ -165,13 +165,13 @@ export function ValuesSection() {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-6 auto-rows-[280px]">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-6 auto-rows-auto md:auto-rows-[280px]">
           {VALUES.map((value, i) => {
             if (value.type === "large") {
               return (
                 <div
                   key={value.title}
-                  className={`value-card ${value.span} p-10 rounded-3xl glass-panel relative overflow-hidden group`}
+                  className={`value-card ${value.span} p-6 md:p-10 rounded-3xl glass-panel relative overflow-hidden group`}
                 >
                   <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-[80px] group-hover:bg-primary/20 transition-all" />
                   <div className="relative z-10 h-full flex flex-col justify-center">
@@ -203,7 +203,7 @@ export function ValuesSection() {
               return (
                 <div
                   key={value.title}
-                  className={`value-card ${value.span} p-10 rounded-3xl glass-panel flex flex-col items-center justify-center text-center group hover:bg-primary/5 transition-all`}
+                  className={`value-card ${value.span} p-6 md:p-10 rounded-3xl glass-panel flex flex-col items-center justify-center text-center group hover:bg-primary/5 transition-all`}
                 >
                   <value.icon className="size-12 text-primary mb-6" />
                   <h3 className="text-3xl md:text-4xl font-heading font-bold text-white uppercase tracking-tighter">
@@ -230,7 +230,7 @@ export function ValuesSection() {
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
-                  <div className="relative z-10 p-10 h-full flex flex-col justify-end">
+                  <div className="relative z-10 p-6 md:p-10 h-full flex flex-col justify-end">
                     <value.icon className="size-10 text-primary mb-4" />
                     <h3 className="text-3xl md:text-4xl font-heading font-bold text-white uppercase tracking-tighter">
                       {value.title}
@@ -246,7 +246,7 @@ export function ValuesSection() {
             return (
               <div
                 key={value.title}
-                className={`value-card ${value.span} p-10 rounded-3xl glass-panel relative overflow-hidden group`}
+                className={`value-card ${value.span} p-6 md:p-10 rounded-3xl glass-panel relative overflow-hidden group`}
               >
                 <div className="relative z-10">
                   <value.icon className="size-10 text-primary mb-6" />

@@ -13,7 +13,7 @@ const fadeUp = {
 
 export function AboutFacilities() {
   return (
-    <section className="py-[160px]">
+    <section className="py-20 md:py-[160px]">
       <div className="max-w-[1440px] mx-auto px-5 md:px-[64px] mb-[32px]">
         <motion.h2
           className="font-heading text-[40px] text-white font-semibold"

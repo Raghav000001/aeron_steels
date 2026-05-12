@@ -24,7 +24,7 @@ export function AboutImpact() {
         speed="slow"
         waveWidth={40}
         containerClassName="!h-auto !min-h-0"
-        className="w-full py-[160px]"
+        className="w-full py-20 md:py-[160px]"
       >
         {/* Decorative Borders */}
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-30 z-10" />

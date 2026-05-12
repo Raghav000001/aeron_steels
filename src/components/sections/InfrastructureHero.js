@@ -76,7 +76,7 @@ export function InfrastructureHero() {
         </p>
 
         <div className="infra-hero-stats flex justify-center gap-6 flex-wrap">
-          <div className="glass-panel p-6 rounded-lg text-left min-w-[200px] border-l-4 border-primary-container">
+          <div className="glass-panel p-6 rounded-lg text-left w-full sm:w-auto sm:min-w-[200px] border-l-4 border-primary-container">
             <span className="font-mono text-[10px] text-primary-container tracking-[0.2em] uppercase block mb-1">
               Annual Output
             </span>
@@ -87,7 +87,7 @@ export function InfrastructureHero() {
               </span>
             </span>
           </div>
-          <div className="glass-panel p-6 rounded-lg text-left min-w-[200px] border-l-4 border-primary-container">
+          <div className="glass-panel p-6 rounded-lg text-left w-full sm:w-auto sm:min-w-[200px] border-l-4 border-primary-container">
             <span className="font-mono text-[10px] text-primary-container tracking-[0.2em] uppercase block mb-1">
               Global Hubs
             </span>

@@ -26,7 +26,7 @@ export function AboutHero() {
         </motion.span>
 
         <motion.h1
-          className="font-heading text-[60px] md:text-[72px] leading-tight text-white mb-8 font-bold"
+          className="font-heading text-4xl md:text-[60px] lg:text-[72px] leading-tight text-white mb-8 font-bold"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}

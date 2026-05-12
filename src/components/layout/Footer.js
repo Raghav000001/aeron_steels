@@ -178,9 +178,23 @@ export default function Footer() {
 
           {/* Bottom Bar */}
           <div className="mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="font-mono text-[10px] text-on-surface-variant/50 uppercase tracking-widest">
-              &copy; {new Date().getFullYear()} Aeron Steels. Computational Material Science.
-            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+              <p className="font-mono text-[10px] text-on-surface-variant/50 uppercase tracking-widest">
+                &copy; {new Date().getFullYear()} Aeron Steels. Computational Material Science.
+              </p>
+              <span className="hidden sm:inline text-on-surface-variant/30 text-[8px]">|</span>
+              <p className="font-mono text-[10px] text-on-surface-variant/50 uppercase tracking-widest">
+                Made by{" "}
+                <a
+                  href="https://leodigitals.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-primary-accent transition-colors"
+                >
+                  leodigitals.in
+                </a>
+              </p>
+            </div>
             <div className="flex items-center gap-6">
               <Link
                 href="/privacy-policy"

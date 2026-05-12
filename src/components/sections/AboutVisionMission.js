@@ -14,7 +14,7 @@ const fadeUp = {
 
 export function AboutVisionMission() {
   return (
-    <section className="py-[160px] max-w-[1440px] mx-auto px-5 md:px-[64px]">
+    <section className="py-20 md:py-[160px] max-w-[1440px] mx-auto px-5 md:px-[64px]">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-[24px]">
         {/* ─── Vision (8-col) ─── */}
         <motion.div
