@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { Calendar, Users, Repeat, Package } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -10,10 +9,10 @@ if (typeof window !== "undefined") {
 }
 
 const STATS = [
-  { icon: Calendar, value: "42+", label: "Years of Experience", num: 42, suffix: "+" },
-  { icon: Users, value: "500+", label: "Customers Worldwide", num: 500, suffix: "+" },
-  { icon: Repeat, value: "95%", label: "Repeat Customers", num: 95, suffix: "%" },
-  { icon: Package, value: "10,000+", label: "MT Supplies Yearly", num: 10000, suffix: "+" },
+  { value: "42+", label: "Years of Experience", num: 42, suffix: "+" },
+  { value: "500+", label: "Global Clients", num: 500, suffix: "+" },
+  { value: "95%", label: "Repeat Customers", num: 95, suffix: "%" },
+  { value: "10K+", label: "MT Supplied Yearly", num: 10000, suffix: "+" },
 ];
 
 function Counter({ stat, visible }) {
@@ -21,7 +20,6 @@ function Counter({ stat, visible }) {
 
   useEffect(() => {
     if (!visible) return;
-    let start = 0;
     const duration = 2000;
     const steps = 60;
     const increment = stat.num / steps;
@@ -41,7 +39,7 @@ function Counter({ stat, visible }) {
   }, [visible, stat.num]);
 
   return (
-    <span className="stat-value text-4xl font-heading font-bold text-primary-dark">
+    <span className="stat-number font-heading text-5xl text-white mt-4 font-bold">
       {count.toLocaleString()}{stat.suffix}
     </span>
   );
@@ -55,54 +53,84 @@ export function StatsSection() {
     const el = sectionRef.current;
     if (!el) return;
 
-    const cards = el.querySelectorAll(".stat-card");
+    const ctx = gsap.context(() => {
+      const cards = el.querySelectorAll(".stat-card");
+      const glow = el.querySelector(".stats-glow");
 
-    gsap.fromTo(
-      cards,
-      { opacity: 0, y: 50, scale: 0.9 },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.7,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 80%",
-          onEnter: () => setVisible(true),
-        },
-      }
-    );
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 60, scale: 0.85 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 80%",
+            onEnter: () => setVisible(true),
+          },
+        }
+      );
 
-    gsap.fromTo(
-      cards,
-      { "--icon-rotate": -180 },
-      {
-        "--icon-rotate": 0,
-        duration: 0.6,
-        stagger: 0.12,
-        ease: "back.out(1.7)",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 80%",
-        },
+      if (glow) {
+        gsap.fromTo(
+          glow,
+          { scale: 0.5, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+            },
+          }
+        );
       }
-    );
+
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", () => {
+          gsap.to(card, { y: -8, duration: 0.3, ease: "power2.out" });
+        });
+        card.addEventListener("mouseleave", () => {
+          gsap.to(card, { y: 0, duration: 0.3, ease: "power2.out" });
+        });
+      });
+    }, el);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={sectionRef} className="relative py-32 overflow-hidden bg-background">
+      {/* Red glow behind */}
+      <div className="stats-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {STATS.map((stat) => (
+          {STATS.map((stat, i) => (
             <div
               key={stat.label}
-              className="stat-card flex flex-col items-center text-center p-8 rounded-2xl shadow-[0_20px_60px_-10px_rgba(0,0,0,0.1)] hover:shadow-xl transition-shadow"
+              className="stat-card glass-panel p-8 rounded-2xl hover:border-primary/30 transition-all group"
+              style={{ transitionDelay: `${i * 0.1}s` }}
             >
-              <stat.icon className="stat-icon size-8 text-primary mb-4" />
+              <span
+                style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                className="text-[10px] text-on-surface-variant group-hover:text-primary transition-colors tracking-[0.2em] uppercase"
+              >
+                {stat.label === "42+" ? "Heritage" :
+                 stat.label === "500+" ? "Reach" :
+                 stat.label === "95%" ? "Trust" :
+                 "Output"}
+              </span>
               <Counter stat={stat} visible={visible} />
-              <span className="stat-label mt-2 text-sm text-body-secondary">{stat.label}</span>
+              <p className="stat-label font-mono text-[11px] text-outline mt-2 tracking-wider uppercase">
+                {stat.label}
+              </p>
             </div>
           ))}
         </div>

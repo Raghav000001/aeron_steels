@@ -47,14 +47,15 @@ export default function PrivacyPolicyPage() {
       />
       <AnimatedSection>
         <div className="max-w-3xl mx-auto">
-          <p className="text-body leading-relaxed mb-8 animate-on-scroll">
+          <span className="font-mono text-[10px] text-primary tracking-[0.3em] uppercase animate-on-scroll">Privacy</span>
+          <p className="text-on-surface-variant leading-relaxed mb-8 animate-on-scroll mt-4">
             Last updated: January 2026. Aeron Steels is committed to protecting your privacy. This policy explains how we handle your personal information.
           </p>
-          <div className="space-y-8">
+          <div className="space-y-8 glass-panel p-8 md:p-12 rounded-2xl">
             {SECTIONS.map((section, i) => (
               <div key={i} className="animate-on-scroll">
-                <h2 className="text-xl font-heading font-bold text-heading mb-3">{section.title}</h2>
-                <p className="text-body leading-relaxed text-sm">{section.content}</p>
+                <h2 className="text-xl font-heading font-bold text-white mb-3">{section.title}</h2>
+                <p className="text-on-surface-variant leading-relaxed text-sm">{section.content}</p>
               </div>
             ))}
           </div>

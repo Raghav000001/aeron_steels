@@ -1,21 +1,19 @@
 import { HeroBanner } from "@/components/sections/HeroBanner";
-import { ClientCarousel } from "@/components/sections/ClientCarousel";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { ValuesSection } from "@/components/sections/ValuesSection";
-import { MediaPressSection } from "@/components/sections/MediaPressSection";
 import { ProductSpecsSection } from "@/components/sections/ProductSpecsSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import { GlobeSection } from "@/components/sections/GlobeSectionWrapper";
 
 export default function Home() {
   return (
     <>
       <HeroBanner />
-      <ClientCarousel />
       <StatsSection />
-      <ValuesSection />
-      <MediaPressSection />
       <ProductSpecsSection />
+      <ValuesSection />
       <TestimonialsSection />
+      <GlobeSection />
     </>
   );
 }

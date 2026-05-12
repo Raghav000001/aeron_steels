@@ -44,16 +44,24 @@ const duplicatedClients = [...CLIENTS, ...CLIENTS];
 
 export function ClientCarousel() {
   return (
-    <section className="relative overflow-hidden border-y border-neutral-200 bg-white py-10">
+    <section className="relative overflow-hidden border-y border-white/5 bg-surface-container-lowest py-10">
+      {/* Section Label */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <span
+          style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+          className="text-[10px] text-on-surface-variant/50 tracking-[0.3em] uppercase"
+        >
+          Trusted By Industry Leaders
+        </span>
+      </div>
 
       {/* Left Fade */}
-      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-white to-transparent" />
+      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-[#0d0d0d] to-transparent" />
 
       {/* Right Fade */}
-      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-white to-transparent" />
+      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-[#0d0d0d] to-transparent" />
 
       <div className="group relative flex overflow-hidden">
-        {/* First Track */}
         <div className="animate-marquee flex min-w-full shrink-0 items-center gap-20 px-10">
           {duplicatedClients.map((client, index) => (
             <a
@@ -61,9 +69,9 @@ export function ClientCarousel() {
               href={client.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-16 w-[140px] items-center justify-center grayscale opacity-70 transition-all duration-300 hover:scale-105 hover:opacity-100 hover:grayscale-0"
+              className="flex h-16 w-[140px] items-center justify-center opacity-30 transition-all duration-300 hover:scale-105 hover:opacity-80"
             >
-              <div className="relative h-10 w-full">
+              <div className="relative h-10 w-full brightness-0 invert">
                 <Image
                   src={client.src}
                   alt={client.name}
@@ -76,7 +84,6 @@ export function ClientCarousel() {
           ))}
         </div>
 
-        {/* Duplicate Track */}
         <div
           className="animate-marquee flex min-w-full shrink-0 items-center gap-20 px-10"
           aria-hidden="true"
@@ -87,9 +94,9 @@ export function ClientCarousel() {
               href={client.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-16 w-[140px] items-center justify-center grayscale opacity-70 transition-all duration-300 hover:scale-105 hover:opacity-100 hover:grayscale-0"
+              className="flex h-16 w-[140px] items-center justify-center opacity-30 transition-all duration-300 hover:scale-105 hover:opacity-80"
             >
-              <div className="relative h-10 w-full">
+              <div className="relative h-10 w-full brightness-0 invert">
                 <Image
                   src={client.src}
                   alt={client.name}
@@ -107,11 +114,9 @@ export function ClientCarousel() {
         .animate-marquee {
           animation: marquee 28s linear infinite;
         }
-
         .group:hover .animate-marquee {
           animation-play-state: paused;
         }
-
         @keyframes marquee {
           from {
             transform: translateX(0%);

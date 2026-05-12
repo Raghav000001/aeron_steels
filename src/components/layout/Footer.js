@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail, ChevronRight } from "lucide-react";
 
 const FOOTER_NAV = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
+  { label: "Infrastructure", href: "/infrastructure" },
+  { label: "Certifications", href: "/certifications" },
   { label: "Quality", href: "/quality" },
   { label: "Media & Press", href: "/media-press" },
   { label: "Our Presence", href: "/our-presence" },
@@ -20,63 +22,68 @@ const PRESENCE_COUNTRIES = ["India", "UAE", "USA", "Germany", "Japan"];
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#091c2d] overflow-hidden">
+    <footer className="relative bg-[#050505] overflow-hidden border-t border-white/5">
       {/* Industrial background overlay */}
       <div
-        className="absolute inset-0 opacity-[0.07] bg-[length:200px_200px] md:bg-[length:300px_300px]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage: `
             linear-gradient(45deg, #ffffff 1px, transparent 1px),
             repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px),
             repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px),
-            radial-gradient(circle at 20% 80%, rgba(0,207,255,0.04) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(38,120,190,0.04) 0%, transparent 50%)
+            radial-gradient(circle at 20% 80%, rgba(239,68,68,0.03) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(239,68,68,0.03) 0%, transparent 50%)
           `,
         }}
       />
+      <div className="grain-overlay absolute inset-0" />
 
       {/* Main Footer */}
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-6">
-              <span className="text-2xl font-heading font-bold text-white">
-                AERON <span className="text-primary-accent">STEELS</span>
+              <span
+                style={{ fontFamily: "var(--font-space-grotesk)" }}
+                className="text-3xl font-bold tracking-tighter text-primary"
+              >
+                AERON<span className="text-white italic">.</span>
               </span>
             </Link>
-            <p className="text-[#92adca] text-sm leading-relaxed max-w-sm mb-6">
-              India&apos;s trusted manufacturer and exporter of premium steel strips,
-              delivering precision-engineered solutions to industries worldwide for over 42 years.
+            <p className="text-on-surface-variant text-sm leading-relaxed max-w-sm mb-8">
+              Forging the future of high-strength industrial steel since 1984.
+              Precision-engineered solutions for global infrastructure.
             </p>
 
             <div className="flex flex-col gap-4">
               <a
                 href="tel:+919818223471"
-                className="flex items-center gap-3 text-[#92adca] hover:text-primary-accent transition-colors text-sm"
+                className="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors text-sm group"
               >
-                <Phone className="size-4 shrink-0" />
+                <Phone className="size-4 shrink-0 group-hover:text-primary transition-colors" />
                 +91 98182 23471
               </a>
               <a
                 href="mailto:sales@aeronsteels.com"
-                className="flex items-center gap-3 text-[#92adca] hover:text-primary-accent transition-colors text-sm"
+                className="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors text-sm group"
               >
-                <Mail className="size-4 shrink-0" />
+                <Mail className="size-4 shrink-0 group-hover:text-primary transition-colors" />
                 sales@aeronsteels.com
               </a>
-              <div className="flex items-center gap-3 text-[#92adca] text-sm">
+              <div className="flex items-center gap-3 text-on-surface-variant text-sm">
                 <MapPin className="size-4 shrink-0" />
                 <span>India</span>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 mt-6">
+            {/* Social */}
+            <div className="flex items-center gap-3 mt-8">
               <a
                 href="https://www.linkedin.com/company/aeronsteels"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center size-9 rounded-full border border-[#748290]/40 text-[#92adca] hover:bg-primary hover:border-primary hover:text-white transition-all"
+                className="inline-flex items-center justify-center size-10 rounded-xl border border-white/10 text-on-surface-variant hover:bg-primary hover:border-primary hover:text-white transition-all"
                 aria-label="LinkedIn"
               >
                 <svg className="size-4" fill="currentColor" viewBox="0 0 24 24">
@@ -88,16 +95,17 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-heading font-semibold text-base mb-5">
-              Quick Links
+            <h4 className="font-mono text-[10px] text-primary tracking-[0.2em] font-bold mb-6 uppercase">
+              Navigate
             </h4>
             <ul className="flex flex-col gap-3">
               {FOOTER_NAV.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-[#92adca] hover:text-primary-accent transition-colors text-sm"
+                    className="text-on-surface-variant hover:text-white transition-colors text-sm flex items-center gap-1.5 group"
                   >
+                    <ChevronRight className="size-3 text-primary opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                     {link.label}
                   </Link>
                 </li>
@@ -107,7 +115,7 @@ export default function Footer() {
 
           {/* Products */}
           <div>
-            <h4 className="text-white font-heading font-semibold text-base mb-5">
+            <h4 className="font-mono text-[10px] text-primary tracking-[0.2em] font-bold mb-6 uppercase">
               Products
             </h4>
             <ul className="flex flex-col gap-3">
@@ -115,8 +123,9 @@ export default function Footer() {
                 <li key={product.href}>
                   <Link
                     href={product.href}
-                    className="text-[#92adca] hover:text-primary-accent transition-colors text-sm"
+                    className="text-on-surface-variant hover:text-white transition-colors text-sm flex items-center gap-1.5 group"
                   >
+                    <ChevronRight className="size-3 text-primary opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                     {product.label}
                   </Link>
                 </li>
@@ -126,12 +135,16 @@ export default function Footer() {
 
           {/* Global Presence */}
           <div>
-            <h4 className="text-white font-heading font-semibold text-base mb-5">
-              Our Presence
+            <h4 className="font-mono text-[10px] text-primary tracking-[0.2em] font-bold mb-6 uppercase">
+              Presence
             </h4>
             <ul className="flex flex-col gap-3">
               {PRESENCE_COUNTRIES.map((country) => (
-                <li key={country} className="text-[#92adca] text-sm">
+                <li
+                  key={country}
+                  className="text-on-surface-variant text-sm flex items-center gap-2"
+                >
+                  <span className="size-1.5 rounded-full bg-primary/50" />
                   {country}
                 </li>
               ))}
@@ -140,56 +153,46 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* SEO Footer Section */}
-      <div className="relative border-t border-[#748290]/30">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-          <div className="max-w-none text-sm leading-relaxed text-[#92adca]">
-            <p className="mb-4">
-              <strong className="text-[#b3c5d8]">Aeron Steels</strong> is a leading{" "}
-              <strong className="text-[#b3c5d8]">manufacturer and exporter of steel strips</strong>{" "}
-              based in India, specializing in{" "}
-              <strong className="text-[#b3c5d8]">carbon steel strips</strong>,{" "}
-              <strong className="text-[#b3c5d8]">hardened and tempered steel strips</strong>, and{" "}
-              <strong className="text-[#b3c5d8]">cold rolled close annealed (CRCA) steel</strong>.
+      {/* SEO + Bottom Bar */}
+      <div className="relative border-t border-white/5">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+          {/* SEO Text */}
+          <div className="max-w-none text-xs leading-relaxed text-on-surface-variant/60">
+            <p className="mb-3">
+              <strong className="text-on-surface-variant/80">Aeron Steels</strong> is a leading
+              manufacturer and exporter of premium steel strips based in India, specializing in
+              carbon steel strips, hardened and tempered steel strips, and cold rolled close
+              annealed (CRCA) steel.
             </p>
-            <p className="mb-4">
-              With over <strong className="text-[#b3c5d8]">42 years of experience</strong> in the
-              steel industry, we serve a wide range of sectors including{" "}
-              <strong className="text-[#b3c5d8]">automotive</strong>,{" "}
-              <strong className="text-[#b3c5d8]">electrical</strong>,{" "}
-              <strong className="text-[#b3c5d8]">construction</strong>, and{" "}
-              <strong className="text-[#b3c5d8]">manufacturing</strong>. Our product range covers{" "}
-              low carbon steel, medium carbon steel, high carbon steel strips, spring steel strips,
-              blue tempered steel strips, and precision cold rolled steel coils.
+            <p className="mb-3">
+              With over 42 years of metallurgical excellence, we serve automotive, electrical,
+              construction, and manufacturing sectors worldwide. Our product range covers low
+              carbon, medium carbon, high carbon steel strips, spring steel strips, blue tempered
+              steel strips, and precision cold rolled steel coils.
             </p>
             <p>
-              We are committed to delivering{" "}
-              <strong className="text-[#b3c5d8]">precision-engineered steel solutions</strong> that
-              meet international quality standards including IS, AISI, DIN, and JIS. Our state-of-the-art
-              manufacturing facility, rigorous quality control processes, and dedicated customer support
-              have made us a preferred <strong className="text-[#b3c5d8]">steel strip supplier</strong>{" "}
-              for clients across <strong className="text-[#b3c5d8]">India, UAE, USA, Germany, Japan</strong>,
-              and other global markets.
+              Committed to international quality standards including IS, AISI, DIN, and JIS.
+              Trusted by clients across India, UAE, USA, Germany, and Japan.
             </p>
           </div>
 
           {/* Bottom Bar */}
-          <div className="mt-8 pt-6 border-t border-[#748290]/20 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-[#92adca] text-xs">
-              &copy; {new Date().getFullYear()} Aeron Steels. All rights reserved.
+          <div className="mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="font-mono text-[10px] text-on-surface-variant/50 uppercase tracking-widest">
+              &copy; {new Date().getFullYear()} Aeron Steels. Computational Material Science.
             </p>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
               <Link
                 href="/privacy-policy"
-                className="text-[#92adca] hover:text-primary-accent text-xs transition-colors"
+                className="font-mono text-[10px] text-on-surface-variant/50 hover:text-primary transition-colors uppercase tracking-widest"
               >
-                Privacy Policy
+                Privacy
               </Link>
               <Link
                 href="/terms"
-                className="text-[#92adca] hover:text-primary-accent text-xs transition-colors"
+                className="font-mono text-[10px] text-on-surface-variant/50 hover:text-primary transition-colors uppercase tracking-widest"
               >
-                Terms of Service
+                Terms
               </Link>
             </div>
           </div>

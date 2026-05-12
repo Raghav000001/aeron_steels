@@ -1,4 +1,4 @@
-import { Image, ArrowRight } from "lucide-react";
+import { Package, ArrowRight } from "lucide-react";
 import PageHero from "@/components/shared/PageHero";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import Link from "next/link";
@@ -18,7 +18,6 @@ const PRODUCTS = [
     thickness: "0.20 mm to 3.00 mm",
     width: "10 mm to 300 mm",
     applications: ["Automotive components", "Springs and washers", "Cutting tools", "Blades and knives", "Hardware fasteners"],
-    color: "#2678be",
   },
   {
     slug: "hardened-tempered-steel",
@@ -28,7 +27,6 @@ const PRODUCTS = [
     thickness: "0.10 mm to 3.00 mm",
     width: "10 mm to 300 mm",
     applications: ["Spring manufacturing", "Shims and spacers", "Lock components", "Seat belt springs", "Wiper blades"],
-    color: "#00cfff",
   },
   {
     slug: "crca-steel",
@@ -38,7 +36,6 @@ const PRODUCTS = [
     thickness: "0.30 mm to 3.00 mm",
     width: "500 mm to 1250 mm",
     applications: ["Automotive body panels", "Home appliances", "Furniture manufacturing", "Electrical enclosures", "Deep drawing components"],
-    color: "#001b34",
   },
 ];
 
@@ -53,11 +50,11 @@ export default function ProductsPage() {
 
       <AnimatedSection>
         <div className="text-center mb-14">
-          <span className="animate-on-scroll text-sm font-semibold uppercase tracking-widest text-primary">Product Range</span>
-          <h2 className="animate-on-scroll text-3xl md:text-[35px] font-heading font-bold text-heading mt-3">
+          <span className="font-mono text-[10px] text-primary tracking-[0.3em] uppercase animate-on-scroll">Product Range</span>
+          <h2 className="text-3xl md:text-[40px] font-heading font-bold text-white mt-3 uppercase tracking-tighter animate-on-scroll">
             Steel Strips for Every Application
           </h2>
-          <p className="animate-on-scroll text-body mt-4 max-w-2xl mx-auto">
+          <p className="text-on-surface-variant mt-4 max-w-2xl mx-auto animate-on-scroll">
             Our product portfolio covers low, medium, and high carbon steel strips, hardened and tempered steel,
             and CRCA steel — serving automotive, electrical, construction, and manufacturing industries.
           </p>
@@ -68,48 +65,48 @@ export default function ProductsPage() {
             <Link
               key={product.slug}
               href={`/products/${product.slug}`}
-              className="animate-on-scroll group relative flex flex-col rounded-2xl bg-white border border-border/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+              className="group relative flex flex-col rounded-2xl glass-panel hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden animate-on-scroll"
             >
-              <div className="h-1.5" style={{ backgroundColor: product.color }} />
+              <div className="h-0.5 bg-gradient-to-r from-primary to-transparent" />
               <div className="p-6 md:p-8 flex flex-col flex-1">
-                <div className="size-14 rounded-xl bg-primary/5 text-primary flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                  <Image className="size-7" />
+                <div className="size-14 rounded-xl glass-panel text-primary flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                  <Package className="size-7" />
                 </div>
-                <h3 className="text-lg md:text-xl font-heading font-bold text-heading group-hover:text-primary transition-colors mb-3">
+                <h3 className="text-lg md:text-xl font-heading font-bold text-white group-hover:text-primary transition-colors mb-3">
                   {product.title}
                 </h3>
-                <p className="text-sm text-body leading-relaxed flex-1 mb-6">{product.summary}</p>
+                <p className="text-sm text-on-surface-variant leading-relaxed flex-1 mb-6">{product.summary}</p>
 
                 <div className="space-y-2 mb-6">
                   <div className="flex items-center gap-2 text-xs">
-                    <span className="font-semibold text-heading">Grades:</span>
-                    <span className="text-body">{product.grades}</span>
+                    <span className="font-semibold text-white/70">Grades:</span>
+                    <span className="text-on-surface-variant">{product.grades}</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs">
-                    <span className="font-semibold text-heading">Thickness:</span>
-                    <span className="text-body">{product.thickness}</span>
+                    <span className="font-semibold text-white/70">Thickness:</span>
+                    <span className="text-on-surface-variant">{product.thickness}</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs">
-                    <span className="font-semibold text-heading">Width:</span>
-                    <span className="text-body">{product.width}</span>
+                    <span className="font-semibold text-white/70">Width:</span>
+                    <span className="text-on-surface-variant">{product.width}</span>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-1.5 mb-6">
                   {product.applications.slice(0, 3).map((app) => (
-                    <span key={app} className="px-2.5 py-1 bg-primary/5 text-primary text-[10px] rounded-full">
+                    <span key={app} className="px-2.5 py-1 bg-white/5 border border-white/10 font-mono text-[10px] text-primary tracking-wider uppercase rounded-full">
                       {app}
                     </span>
                   ))}
                   {product.applications.length > 3 && (
-                    <span className="px-2.5 py-1 bg-muted text-muted-foreground text-[10px] rounded-full">
+                    <span className="px-2.5 py-1 bg-white/5 border border-white/10 text-on-surface-variant/50 text-[10px] rounded-full">
                       +{product.applications.length - 3}
                     </span>
                   )}
                 </div>
 
-                <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:text-primary-accent transition-colors mt-auto">
-                  View Full Details
+                <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:text-white transition-colors mt-auto font-mono text-xs tracking-wider uppercase">
+                  View Details
                   <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </div>
@@ -120,19 +117,16 @@ export default function ProductsPage() {
 
       <AnimatedSection muted>
         <div className="text-center max-w-2xl mx-auto">
-          <h2 className="animate-on-scroll text-3xl md:text-[35px] font-heading font-bold text-heading leading-tight">
+          <h2 className="text-3xl md:text-[40px] font-heading font-bold text-white leading-tight uppercase tracking-tighter animate-on-scroll">
             Can&apos;t Find What You&apos;re Looking{" "}
-            <span className="bg-gradient-to-r from-primary to-primary-accent bg-clip-text text-transparent">
-              For
-            </span>
-            ?
+            <span className="text-primary italic">For</span>?
           </h2>
-          <p className="animate-on-scroll text-body mt-4 mb-8">
+          <p className="text-on-surface-variant mt-4 mb-8 animate-on-scroll">
             We also manufacture custom specifications based on your requirements. Contact our team for a tailored solution.
           </p>
           <Link
             href="/contact"
-            className="animate-on-scroll inline-flex items-center px-8 py-3 bg-gradient-to-r from-primary to-primary-accent text-white font-semibold text-sm rounded-full hover:opacity-90 transition-opacity hover:scale-105 active:scale-95"
+            className="inline-flex items-center px-8 py-3 bg-primary hover:bg-red-600 text-white font-mono text-xs rounded-lg transition-all active:scale-95 shadow-[0_0_20px_rgba(239,68,68,0.3)] tracking-wider uppercase animate-on-scroll"
           >
             Request Custom Quote
           </Link>

@@ -16,6 +16,9 @@
 # next.js
 /.next/
 /out/
+/github
+/sisyphus
+
 
 # production
 /build
@@ -39,3 +42,22 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AI workspace — session data, plans, run continuations
+.sisyphus/
+
+# Design reference exports — not source code
+aeron_steel_design/
+
+# IDE / editor config
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+
+# catch-all logs
+*.log
+

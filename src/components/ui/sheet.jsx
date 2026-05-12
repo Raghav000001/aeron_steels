@@ -51,6 +51,7 @@ function SheetContent({
   children,
   side = "right",
   showCloseButton = true,
+  title = "Menu",
   ...props
 }) {
   return (
@@ -64,6 +65,7 @@ function SheetContent({
           className
         )}
         {...props}>
+        <SheetTitle className="sr-only">{title}</SheetTitle>
         {children}
         {showCloseButton && (
           <SheetPrimitive.Close data-slot="sheet-close" asChild>

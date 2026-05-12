@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -9,183 +8,216 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const TESTIMONIALS = [
+const PROCESS_STEPS = [
   {
-    quote:
-      "Aeron Steels has been our reliable partner for carbon steel strips for over a decade. Their consistency in quality and timely delivery is unmatched.",
-    name: "Rajesh Kumar",
-    title: "Procurement Head",
-    company: "Automotive Components Ltd, New Delhi",
+    number: "01",
+    title: "Molecular Simulation",
+    description:
+      "Simulating billions of alloy permutations before the first spark is struck in the real world.",
+    side: "left",
   },
   {
-    quote:
-      "The precision in their hardened and tempered steel strips has helped us reduce our rejection rate significantly. Excellent quality control.",
-    name: "David Cohen",
-    title: "Operations Manager",
-    company: "SteelTech Industries, Israel",
+    number: "02",
+    title: "Plasma Induction",
+    description:
+      "Refining ores in our signature 5000\u00B0C plasma induction reactors for extreme molecular purity.",
+    side: "right",
   },
   {
-    quote:
-      "We switched to Aeron Steels three years ago and have never looked back. Their CRCA steel quality is on par with the best international suppliers.",
-    name: "Priya Subramanian",
-    title: "VP Manufacturing",
-    company: "Precision Engineers, Chennai",
-  },
-  {
-    quote:
-      "Outstanding service and product quality. They understand our specifications perfectly and deliver exactly what we need, every single time.",
-    name: "Amit Sharma",
-    title: "Director",
-    company: "Industrial Solutions Pvt, Noida",
+    number: "03",
+    title: "Precision Forging",
+    description:
+      "Applying 500,000 tons of hydraulic pressure to shape future industrial icons.",
+    side: "left",
   },
 ];
 
 export function TestimonialsSection() {
-  const [active, setActive] = useState(0);
-  const [animating, setAnimating] = useState(false);
   const sectionRef = useRef(null);
-  const trackRef = useRef(null);
 
-  const goTo = useCallback(
-    (index) => {
-      if (animating || index === active) return;
-      setAnimating(true);
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
 
-      gsap.to(trackRef.current, {
-        xPercent: -index * (100 / TESTIMONIALS.length),
-        duration: 0.6,
+    const ctx = gsap.context(() => {
+      gsap.to(el.querySelector(".tracing-beam"), {
+        "--beam-height": "100%",
+        duration: 1.5,
         ease: "power3.inOut",
-        onComplete: () => {
-          setActive(index);
-          setAnimating(false);
+        scrollTrigger: {
+          trigger: el,
+          start: "top 60%",
         },
       });
-    },
-    [active, animating]
-  );
 
-  const next = useCallback(
-    () => goTo((active + 1) % TESTIMONIALS.length),
-    [active, goTo]
-  );
+      gsap.fromTo(
+        ".process-header",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 80%" },
+        }
+      );
 
-  const prev = useCallback(
-    () => goTo((active - 1 + TESTIMONIALS.length) % TESTIMONIALS.length),
-    [active, goTo]
-  );
+      const items = el.querySelectorAll(".timeline-item");
+      items.forEach((item, i) => {
+        gsap.fromTo(
+          item,
+          { opacity: 0, y: 80 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            delay: i * 0.25,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 80%",
+            },
+          }
+        );
 
-  useEffect(() => {
-    gsap.fromTo(
-      sectionRef.current,
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-        },
-      }
-    );
+        gsap.fromTo(
+          item,
+          { y: 40 },
+          {
+            y: -40,
+            ease: "none",
+            scrollTrigger: {
+              trigger: item,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+            },
+          }
+        );
+
+        const node = item.querySelector(".timeline-node");
+        if (node) {
+          gsap.fromTo(
+            node,
+            { scale: 0, rotate: -180 },
+            {
+              scale: 1,
+              rotate: 0,
+              duration: 0.7,
+              delay: i * 0.25 + 0.2,
+              ease: "back.out(2.5)",
+              scrollTrigger: {
+                trigger: item,
+                start: "top 80%",
+              },
+            }
+          );
+        }
+      });
+    }, el);
+
+    return () => ctx.revert();
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(next, 5000);
-    return () => clearInterval(interval);
-  }, [next]);
-
   return (
-    <section ref={sectionRef} className="py-20 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-[35px] font-heading font-bold text-heading">
-            What Our Clients Say
+    <section
+      ref={sectionRef}
+      className="relative py-32 bg-surface-container-lowest overflow-hidden"
+    >
+      <div className="section-container">
+        <div className="process-header flex flex-col items-center text-center mb-24">
+          <span
+            style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+            className="text-[10px] text-primary tracking-[0.4em] uppercase"
+          >
+            Process Architecture
+          </span>
+          <h2 className="text-5xl md:text-6xl font-heading font-bold text-white mt-6 uppercase tracking-tighter leading-tight">
+            From Atom to{" "}
+            <span className="text-primary">Superstructure</span>
           </h2>
         </div>
+      </div>
 
-        <div className="max-w-3xl mx-auto">
-          <div className="relative rounded-3xl overflow-hidden">
+      <div className="section-container">
+        <div
+          className="relative tracing-beam"
+          style={{ "--beam-height": "0%" }}
+        >
+          <style jsx>{`
+            .tracing-beam::after {
+              content: "";
+              position: absolute;
+              top: 0;
+              left: 50%;
+              width: 2px;
+              height: var(--beam-height, 0%);
+              background: linear-gradient(
+                to bottom,
+                transparent,
+                #ef4444,
+                transparent
+              );
+              transform: translateX(-50%);
+              transition: height 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+          `}</style>
+
+          {PROCESS_STEPS.map((step) => (
             <div
-              ref={trackRef}
-              className="flex"
-              style={{ width: `${TESTIMONIALS.length * 100}%` }}
+              key={step.number}
+              className={`timeline-item flex flex-col md:flex-row justify-between items-start relative ${
+                step.number !== "03" ? "mb-32" : ""
+              }`}
             >
-              {TESTIMONIALS.map((t, i) => (
-                <div
-                  key={i}
-                  className="relative"
-                  style={{ width: `${100 / TESTIMONIALS.length}%` }}
+              {step.side === "left" ? (
+                <div className="w-full md:w-[45%] text-right pr-12 hidden md:block">
+                  <h3 className="text-2xl md:text-3xl font-heading font-bold text-white uppercase tracking-tighter">
+                    {step.title}
+                  </h3>
+                  <p className="text-on-surface-variant mt-4 text-base md:text-lg leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+              ) : (
+                <div className="w-full md:w-[45%]" />
+              )}
+
+              <div className="timeline-node absolute left-1/2 -translate-x-1/2 w-10 h-10 rounded-full border-2 border-primary bg-background z-10 shadow-[0_0_20px_#ef4444] flex items-center justify-center">
+                <span
+                  style={{ fontFamily: "var(--font-jetbrains-mono)" }}
+                  className="text-[10px] text-primary font-bold"
                 >
-                  <div className="bg-gradient-to-br from-primary to-primary-accent p-10 md:p-14 h-full mx-0.5 rounded-3xl">
-                    <svg
-                      className="absolute top-8 left-8 size-12 text-white/10"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                    </svg>
+                  {step.number}
+                </span>
+              </div>
 
-                    <div className="relative z-10">
-                      <p className="text-white text-lg md:text-xl leading-relaxed italic mb-8">
-                        &ldquo;{t.quote}&rdquo;
-                      </p>
-
-                      <div className="w-16 h-1 bg-white/30 rounded-full mb-6" />
-
-                      <div>
-                        <p className="text-white font-heading font-bold text-lg">
-                          {t.name}
-                        </p>
-                        <p className="text-white/70 text-sm">
-                          {t.title}, {t.company}
-                        </p>
-                      </div>
-                    </div>
+              {step.side === "right" ? (
+                <div className="w-full md:w-[45%] text-left pl-12">
+                  <h3 className="text-2xl md:text-3xl font-heading font-bold text-white uppercase tracking-tighter">
+                    {step.title}
+                  </h3>
+                  <p className="text-on-surface-variant mt-4 text-base md:text-lg leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+              ) : (
+                <div className="w-full md:w-[45%] text-left pl-12 mt-16 md:mt-0">
+                  <div className="md:hidden">
+                    <h3 className="text-xl font-heading font-bold text-white uppercase tracking-tighter">
+                      {step.title}
+                    </h3>
+                    <p className="text-on-surface-variant mt-3 text-sm leading-relaxed">
+                      {step.description}
+                    </p>
                   </div>
                 </div>
-              ))}
+              )}
             </div>
-          </div>
-
-          <div className="flex items-center justify-center mt-8 gap-6">
-            <button
-              onClick={prev}
-              disabled={animating}
-              className="flex items-center justify-center size-10 rounded-full border border-border hover:bg-primary hover:border-primary hover:text-white transition-all hover:scale-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="size-5" />
-            </button>
-
-            <div className="flex items-center gap-2">
-              {TESTIMONIALS.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => goTo(i)}
-                  disabled={animating}
-                  className={`size-2.5 rounded-full transition-all ${
-                    i === active
-                      ? "bg-primary scale-125"
-                      : "bg-border hover:bg-muted-foreground"
-                  } disabled:cursor-not-allowed`}
-                  aria-label={`Go to testimonial ${i + 1}`}
-                />
-              ))}
-            </div>
-
-            <button
-              onClick={next}
-              disabled={animating}
-              className="flex items-center justify-center size-10 rounded-full border border-border hover:bg-primary hover:border-primary hover:text-white transition-all hover:scale-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="size-5" />
-            </button>
-          </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
+
